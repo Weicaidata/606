@@ -1,0 +1,83 @@
+---
+title: "lab000"
+author: "Weijian Cai"
+date: "February 5, 2019"
+output: html_document
+---
+
+```{r load-abrbuthnot-data, eval=TRUE}
+source("more/arbuthnot.R")
+```
+
+1.  What command would you use to extract just the counts of girls baptized? Try
+```{r}
+arbuthnot$girls
+```
+ 
+2.  Is there an apparent trend in the number of girls baptized over the years?    How would you describe it?
+
+## since 1660, the number of girls have been increased gradually. 
+
+
+3.  Now, make a plot of the proportion of boys over time. What do you see? 
+
+##The ratio is greater than 0.5 all along years , that means there were more new born boys than girls.
+```{r}
+plot(arbuthnot$year, arbuthnot$boys / (arbuthnot$boys + arbuthnot$girls), type = "l")
+```
+
+
+## On Your Own
+
+In the previous few pages, you recreated some of the displays and preliminary 
+analysis of Arbuthnot's baptism data. Your assignment involves repeating these 
+steps, but for present day birth records in the United States.  Load up the 
+present day data with the following command.
+
+```{r load-present-data, eval=TRUE}
+source("more/present.R")
+```
+
+The data are stored in a data frame called `present`.
+
+-   What years are included in this data set? What are the dimensions of the 
+    data frame and what are the variable or column names?
+##years included in the data set
+```{r}
+present$year
+```
+##dimension of the data frame
+```{R}
+dim(present)
+```
+
+##column name
+```{r}
+names(present)
+```
+
+-   How do these counts compare to Arbuthnot's? Are they on a similar scale?
+
+##the present data set have much larger new born compare to Arbuthnot's.
+```{r}
+summary(present)
+summary(arbuthnot)
+```
+
+-   Make a plot that displays the boy-to-girl ratio for every year in the data 
+    set. What do you see? Does Arbuthnot's observation about boys being born in
+    greater proportion than girls hold up in the U.S.? Include the plot in your 
+    response.
+
+##plot displays the boy-to-girl ration of present data set.It shows that the ratio were always greater than 1, and the trend was downhill.
+```{r}
+plot(x=present$year, y=present$boys/present$girls)
+```
+
+-   In what year did we see the most total number of births in the U.S.? You can
+
+```{R}
+present$total=present$boys + present$girls
+which.max(present$total)
+present[22, ]
+```
