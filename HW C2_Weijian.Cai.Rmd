@@ -1,0 +1,154 @@
+---
+title: "HW606_C2_Probability"
+author: "Weijian Cai"
+date: "February 16, 2019"
+output: html_document
+---
+
+###2.6 Dice rolls. 
+####(a)getting a sum of 1?
+```
+0  
+```
+
+####(b)getting a sum of 5?
+```
+4/36, it could be 4 1,1 4, 2 3,3 2  
+```
+
+####(c)) getting a sum of 12?  
+```
+1/36
+```
+
+
+###2.8Poverty and language  
+####(a)Are living below the poverty line and speaking a foreign language at home disjoint?  
+```
+No, there are 4.2% overlapped.
+```  
+
+####Draw a Venn diagram summarizing the variables and their associated probabilities.  
+```{r}
+library(VennDiagram)
+grid.newpage()
+draw.pairwise.venn(14.6, 20.7, 4.2, 
+                   category = c("live below the poverty line", "language other than English at home"), 
+                   lty = rep("blank", 2), 
+                   fill = c("red", "black"), 
+                   alpha = rep(0.5, 2), 
+                   cat.pos = c(.5, 0.5), 
+                   cat.dist = rep(0.025, 2))
+```
+
+###What percent of Americans live below the poverty line and only speak English at home?  
+```
+10.4%
+```
+
+###(d) What percent of Americans live below the poverty line or speak a foreign language at home?  
+```
+31.1%=16.5%+4.2%+10.4%
+```  
+###(e) What percent of Americans live above the poverty line and only speak English at home?  
+```
+68.9%=1-31.1%
+```  
+
+###(f) Is the event that someone lives below the poverty line independent of the event that the person speaks a foreign language at home?  
+```
+No, it is dependent.
+```  
+
+###2.20 Assortative mating
+####(a) What is the probability that a randomly chosen male respondent or his partner has blue eyes?  
+```{r}
+P_a = (78+19+11+23+13)/204
+P_a
+```
+
+####(b) What is the probability that a randomly chosen male respondent with blue eyes has a partner with blue eyes?
+
+```{r}
+p_b = 78/204 
+p_b
+```
+
+###What is the probability that a randomly chosen male respondent with brown eyes has a partner with blue eyes? What about the probability of a randomly chosen male respondent with green eyes having a partner with blue eyes?  
+```{r}
+P_brown_blue<- 19/204
+P_brown_blue
+P_green_blue<- 11/204 
+P_green_blue
+```
+
+####(d) Does it appear that the eye colors of male respondents and their partners are independent?   Explain your reasoning  
+```
+The event is not independent,since the P(male bule|female bule)> p(male bule|female brown)
+```
+
+###2.30 Books on a bookshelf.   
+####(a) Find the probability of drawing a hardcover book first then a paperback fiction book second when drawing without replacement.   
+```{r}
+p_a<-(28/95)*(59/94)
+p_a
+```
+
+####(b) Determine the probability of drawing a fiction book first and then a hardcover book second,when drawing without replacement.   
+```{r}
+p_b<-(72/95)*(28/94)
+p_b
+```
+
+####(c) Calculate the probability of the scenario in part (b), except this time complete the calculations under the scenario where the first book is placed back on the bookcase before randomly drawing the second book.  
+```{r}
+p_c<-(72/95)*(28/95)
+p_c
+```
+
+####(d) The final answers to parts (b) and (c) are very similar. Explain why this is the case.  
+```
+1 out of 95,we consider small in this case.
+```
+
+###2.38 Baggage fees  
+####(a) Build a probability model, compute the average revenue per passenger, and compute the corresponding standard deviation.
+```{r}
+num_bag<-c(0,1,2)
+fee <-c(0,25,60)
+prob <-c(0.54,0.34,0.12)
+avg_revenue<-sum(fee*prob)
+avg_revenue
+sd=sqrt((sum(fee^2 * prob) - avg_revenue^2))
+sd
+```
+
+####(b) About how much revenue should the airline expect for a flight of 120 passengers? With what standard deviation? Note any assumptions you make and if you think they are justified.  
+```{r}
+total_rev  = 120 * avg_revenue
+total_rev
+```
+
+###2.44 Income and gender.  
+####(a) Describe the distribution of total personal income  
+
+```
+The distribution is multimodal
+```
+
+####(b) What is the probability that a randomly chosen US resident makes less than $50,000 per year?
+```{r}
+P_44b = (21.2+18.3+15.8+4.7+2.2)/100
+P_44b
+```
+
+####(c) What is the probability that a randomly chosen US resident makes less than $50,000 per year and is female? Note any assumptions you make  
+```{r}
+p_44c<-P_44b*0.41
+p_44c
+```
+
+####(d) The same data source indicates that 71.8% of females make less than $50,000 per year. Use this value to determine whether or not the assumption you made in part (c) is valid.  
+```
+The assumption is not valid.
+```
