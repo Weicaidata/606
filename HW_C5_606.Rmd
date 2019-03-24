@@ -1,0 +1,118 @@
+---
+title: "HW_C5_606"
+author: "Weijian Cai"
+date: "March 24, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+##5.6 Working backwards, Part II
+```{r}
+sample_mean <- ((77+65)/2)
+sample_mean
+```
+
+```{r}
+margin_error <- ((77-65)/2)
+margin_error
+```
+standard devation =17.53481
+```{r}
+tvalue<- qt(.95,(25-1))
+sd<- (margin_error/tvalue)*5
+sd
+```
+
+
+##5.14 SAT scores
+###(a) Raina wants to use a 90% confidence interval. How large a sample should she collect?
+```{r}
+moe <- 25
+sd <- 250
+z <- qnorm(0.95)
+n <- ((z * sd)/ moe)^2
+n
+```
+
+####b) Luke wants to use a 99% confidence interval. Without calculating the actual sample size, determine whether his sample should be larger or smaller than Raina's, and explain your reasoning.  
+Luke's sample size should be larger, since it has a larger z score.  
+
+####(c) Calculate the minimum required sample size for Luke.
+```{r}
+moe <- 25
+sd <- 250
+z <- qnorm(0.99)
+n <- ((z * sd)/ 25)^2
+n
+```
+
+
+###5.20 High School and Beyond, Part I. T
+####(a) Is there a clear di???erence in the average reading and writing scores?
+No, there is no clear difference.  
+
+#### b) Are the reading and writing scores of each student independent of each other?
+Yes, they are.
+
+#### c) Create hypotheses appropriate for the following research question: is there an evident difference in the average score of students in the reading and writing exam?
+Ho: there are no differece between the average score in reading and writing.
+Ha: there are difference betwwen the average score in reading and writing.
+
+####(d) Check the conditions required to complete this test
+It is  independent and normal distribution, sample size is less than 10%.
+
+####(e)
+since the p value is more than 0.05, we can not reject the null hypothesis.
+```{r}
+mean_diff <- -0.545
+sd <- 8.887
+n <- 200
+se <- sd / sqrt(n)
+t <- (mean_diff - 0)/ se
+p <- pt(t, n-1)
+p
+```
+
+
+####(f) What type of error might we have made? Explain what the error means in the context of the application
+type 2
+
+#### g) Based on the results of this hypothesis test, would you expect a confidence interval for the average difference between the reading and writing scores to include 0? Explain your reasoning.
+Yes, since the HO hypothesis we fail to reject.
+
+### 5.32 Fuel efficiency of manual and automatic cares, Part I
+Ho: there is no difference between automatic and manual car
+Ha: there is difference between automatic and manual car
+
+We can reject the Ho hyothesis, since the p value is less than 0.05.
+```{r}
+n <- 26
+mean_diff <- 16.12 - 19.85
+se_diff <- sqrt((3.58^2/n)+(4.51^2/n))
+t1 <- (mean_diff - 0)/ se_diff
+P <- pt(t1, n-1)
+P
+```
+
+###5.48 Work hours and education.
+####(a) Write hypotheses for evaluating whether the average number of hours worked varies across the five groups.
+Ho: Average number of hours worked among all five groups are equal.  
+Ha: Avergae number of hours worked among all five groups are not equal.  
+
+#### b) Check conditions and describe any assumptions you must make to proceed with the test. 
+The observations are independent and approximately normal.
+
+#### c) Below is part of the output associated with this test. Fill in the empty cells.  
+|         |Df   | Sum Sq  |Mean Sq| F value  | Pr (>F) |
+|---------|-----|---------|-------|----------|---------|
+|degree   | **4**    |  **2004.1** | 501.54  | **2.186745** | 0.0682 |
+|Residuals| **1167** |  267382| **229.12**   |              |
+|Total    | **1171** | **269386.1** |        |              |
+
+###(d) What is the conclusion of the test?
+since the p value = 0.0682, which is greater than 0.05, w fail to reject the HO hypothesis.
+
+
+
