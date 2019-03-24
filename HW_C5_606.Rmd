@@ -10,18 +10,18 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ##5.6 Working backwards, Part II
 ```{r}
-sample_mean <- ((77+65)/2)
-sample_mean
+sa_mean <- ((77+65)/2)
+sa_mean
 ```
 
 ```{r}
-margin_error <- ((77-65)/2)
-margin_error
+moe1 <- ((77-65)/2)
+moe1
 ```
 standard devation =17.53481
 ```{r}
 tvalue<- qt(.95,(25-1))
-sd<- (margin_error/tvalue)*5
+sd<- (moe1/tvalue)*5
 sd
 ```
 
@@ -40,11 +40,12 @@ n
 Luke's sample size should be larger, since it has a larger z score.  
 
 ####(c) Calculate the minimum required sample size for Luke.
+the miimum is 666.
 ```{r}
-moe <- 25
-sd <- 250
-z <- qnorm(0.99)
-n <- ((z * sd)/ 25)^2
+moe = 25
+sd = 250
+z = 2.58
+n = ((sd*z)/moe)^2
 n
 ```
 
