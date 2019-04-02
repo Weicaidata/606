@@ -1,0 +1,129 @@
+---
+title: "606_HW6"
+author: "Weijian Cai"
+date: "April 1, 2019"
+output: html_document
+---
+
+###6.6 2010 Healthcare Law
+A.FALSE.It should be 100% confident since itlies between 43% and 49%.  
+B.TRUE. It refers to the population proportion.
+C.FALSE. The confidence interval is for the population proportion.
+D.FALSE, the lower confidence level, the smaller the margin of error.
+
+###V6.12 Legalization of marijuana, Part I.
+####(a) Is 48% a sample statistic or a population parameter? Explain
+This is sample statistic, it measure sample of 1259 people.
+
+####(b) Construct a 95% confidence interval for the proportion of US residents who think marijuana should be made legal, and interpret it in the context of the data.
+```{r}
+p=0.48
+n=1259 
+se = sqrt(p*(1-p)/n)
+me = 1.96 *se
+c(p-me,p+me)
+```
+
+####(c) A critic points out that this 95% confidence interval is only accurate if the statistic follows a normal distribution, or if the normal model is a good approximation. Is this true for these data? Explain
+1.the sample are indipendent.
+2.both the success and failure are more than 10.  
+
+####(d) A news piece on this survey's findings states, "Majority of Americans think marijuana should be legalized." Based on your confidence interval, is this news piece's statement justified?
+the 95% CI is between 45.2% to 50.8%. so it is justified.
+
+
+###6.20 Legalize Marijuana, Part II.
+```{r}
+p = 0.48 
+me = 0.02 
+((p*(1-p)/(me/1.96)^2))
+```
+
+###6.28 Sleep deprivation, CA vs. OR, Part I
+```{r}
+# california
+n1 = 4691
+p1 = 0.088
+
+# oregon
+n2 = 11545 
+p2 = 0.080
+
+
+diff <- p1-p2 
+se_diff = sqrt((p1*(1-p1)/n1) + (p2*(1-p2)/n2))
+me <- 1.96 * se_diff
+
+c(diff-me,diff+me)
+```
+It shows that people from California who are sleep deprived is  1.75% less and 0.15% more than people from Oregon.   
+
+###6.44 Barking deer
+####(a) Write the hypotheses for testing if barking deer prefer to forage in certain habitats over others.
+Ho:Barking deer do not prefer a certain habitat over the other for foraging
+Ha:Barking deer do prefer a certain habitat over the other for foraging
+
+####(b) What type of test can we use to answer this research question?
+Chi-square test.
+
+####(c) Check if the assumptions and conditions required for this test are satisfied.
+1.the sample are independent
+2.the sample sizes are greater than 5.
+
+####(d) Do these data provide convincing evidence that barking deer prefer to forage in certain habitats over others? Conduct an appropriate hypothesis test to answer this research question.
+```{r}
+n <- c(4, 16, 67, 345)
+p <- c(.048, .147, .396, 1 - .048 - .147 - .396)
+
+e <- 426 * p
+
+chi <- 276.6135
+   
+
+p_chi <- (1 - pchisq(chi, df = length(n) - 1))
+p_chi
+```
+The p-value is  0, so we can reject the null hypothesis. Therefore, barking deer prefer to forage in certain habitats over others.
+
+###6.48 Co???ee and Depression. 
+####(a) What type of test is appropriate for evaluating if there is an association between co???ee intake and depression?  
+Chi-Square test
+
+####(b) Write the hypotheses for the test you identified in part (a)
+Ho: There is no relationship between coffee consumption and clinical depression
+Ha: There is a relationship between coffee consumption and clinical depression  
+
+####(c) Calculate the overall proportion of women who do and do not su???er from depression.
+```{r}
+p = (2607 / 50739)
+p
+1-p
+```
+
+####(d) Identify the expected count for the highlighted cell, and calculate the contribution of this cell to the test statistic, i.e. (Observed  Expected) 2/Expected.
+```{r}
+expcount =  6617 * 0.0514
+obscount = 373
+
+(obscount - expcount)^2/expcount
+```
+
+####(e) The test statistic is 2 = 20.93. What is the p-value?
+```{r}
+nrow <- 2
+ncol <- 5
+df <- (nrow-1)*(ncol-1)
+chid <- 20.93
+pchisq(chid,df,lower.tail=FALSE) 
+```
+
+####(f) What is the conclusion of the hypothesis test?
+the p-value is less than the significance level. Therefore, we can reject the null hypothesis.
+
+####(g) One of the authors of this study was quoted on the NYTimes as saying it was "too early to recommend that women load up on extra co???ee" based on just this study.64 Do you agree with this statement? Explain your reasoning. 
+Yes, the study shows no relationship between coffee consumption and depression for women.
+
+
+
+
+
