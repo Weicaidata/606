@@ -1,0 +1,87 @@
+---
+title: "HW7_606"
+author: "Weijian Cai"
+date: "April 14, 2019"
+output: html_document
+---
+###7.24Nutrition at Starbucks, Part I
+####(a) Describe the relationship between number of calories and amount of carbohydrates (in grams) that Starbucks food menu items contain.
+
+It is a positive relationship and appears to be linear regression.
+
+####(b) In this scenario, what are the explanatory and response variables?
+The explanatory variable is the number of calories, and the response variable is the number of carbs.
+
+####(c) Why might we want to fit a regression line to these data?
+we are able to  prefict the amount of carbohydrates based on calories.
+
+####(d) Do these data meet the conditions required for fitting a least squares line?
+Yes, since the residuals are normal and the histogram is symmetric.
+
+###7.26 Body measurements, Part III. 
+####(a) Write the equation of the regression line for predicting height
+Yh= 105.967+0.608Xs
+
+####(b) Interpret the slope and the intercept in this context.
+The slope means that the height would increase 0.608 cm for every 1 cm increase of shoulder girth. The intercept means when shoulder girth is 0 cm, the height is 105.9651 cm.
+
+####(c) Calculate R2 of the regression line for predicting height from shoulder girth, and interpret it in the context of the application.
+```{r}
+R=0.67
+R2=R*R
+R2
+```
+
+####(d) A randomly selected student from your class has a shoulder girth of 100 cm. Predict the height of this student using the model.
+```{r}
+x <- 100
+
+r<- 0.608*x + 105.967
+r
+```
+
+####(e) The student from part (d) is 160 cm tall. Calculate the residual, and explain what this residual means.
+the residual is the difference between actual value minus the estimate
+```{r}
+Res=160 - 166.7545
+Res
+```
+
+####(f) A one year old has a shoulder girth of 56 cm. Would it be appropriate to use this linear model to predict the height of this child?  
+No, since is not within the range of this model.
+
+###7.30 Cats, Part I
+####(a) Write out the linear model.
+y=-0.357+4.034x
+
+####(b) Interpret the intercept.
+when body weight equal 0, the heart weight will be -0.357g.
+
+####(c) Interpret the slope.
+For every 1 kg increases in body weight, the heart weight increase 4.034 g.
+
+####d) Interpret R2.
+64.66% of the variation in heart weight is explained by the other vaiable body weight.
+
+####(e) Calculate the correlation coecient
+```{r}
+R2 <- 0.6466
+r <- sqrt(R2)
+r
+```
+
+
+###7.40 Rate my professor
+####(a) Given that the average standardized beauty score is -0.0883 and average teaching evaluation score is 3.9983, calculate the slope. Alternatively, the slope may be computed using just the information provided in the model summary table
+```{r}
+b40 <- (3.9983 - 4.010)/-0.0883
+b40
+```
+
+
+####(b) Do these data provide convincing evidence that the slope of the relationship between teaching evaluation and beauty is positive? Explain your reasoning.
+The p-value equals 0, which is less than the alpha level 0.05. Then we have sufficient evidence to reject the null hypothesis.
+
+####(c) List the conditions required for linear regression and check if each one is satisfied for this model based on the following diagnostic plots.
+the histogram of the residuals shows a symmetric and unimodal shape.
+
