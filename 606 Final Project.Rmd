@@ -2,7 +2,13 @@
 title: "Data 606 Final Project"
 author: "Weijian Cai"
 date: "May 15, 2019"
-output: html_document
+output: 
+  html_document:
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float:
+      collapsed: false
 ---
 #Introduction
 Which state has the worst drivers? Is there any relationship between number of accidents and premiums? I chose this topic becasue I used to have a very low auto insurance rate when I was in PA, my premiums now is very high since I move to Brooklyn NY. I would like to know what make the premiums such big difference between different states. I also found out that the bad drivers in your state could affect your premiums as well.
@@ -85,7 +91,7 @@ ggplot(df,aes(x=reorder(State,- Losses.incurred.by.insurance.companies.for.colli
 The loss incurred by insurance companies for each collisions is another measurement I use to determine which state has the worst drivers, we can see that Louisiana was the most expensive, which was at 194.78. Idaho has the best drivers in U.S.. The average pay out for nationalwide was 134.49.  
 
 
-#Inference:
+#Inference
 
 **Conditions:**The conditions for inference was satisfied, since the sample size is larger than 30, and the dataset of premiums follow normal distribution, and each sample is independent.
 
@@ -111,5 +117,5 @@ summary(reg)
 I have analyzed three differenct independent variables above, the number of car crashes in each state, the insurance premiums, and how much insurance pay out.However I did not have consistant ranking for each measurements, but South Carolina and Texa could be the worst drivers. The best drivers are Idaha, Indiana.  
 For future research, I would like to analyze other factors like the weather condition and road condition to see how they affect the ranking and premiums.
 
-#References:
+#References
 https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/812032
