@@ -1,0 +1,115 @@
+---
+title: "Data 606 Final Project"
+author: "Weijian Cai"
+date: "May 15, 2019"
+output: html_document
+---
+#Introduction
+Which state has the worst drivers? Is there any relationship between number of accidents and premiums? I chose this topic becasue I used to have a very low auto insurance rate when I was in PA, my premiums now is very high since I move to Brooklyn NY. I would like to know what make the premiums such big difference between different states. I also found out that the bad drivers in your state could affect your premiums as well.
+
+
+#Data
+**Data Collection:**The dataset I used to analze this topic is from Kaggle, Here is the link below. https://raw.githubusercontent.com/fivethirtyeight/data/master/bad-drivers/bad-drivers.csv. The data of 5.6 million motor vehicle crashes in United States in 2012 was collected by National Highway Trafic Safety Administration.  
+
+**Cases:** There are 51 cases in the dataset, each case represent one state.  
+**Variables:**There are two kind of variables in this study, one is response variable, which is the number of fatal collisions and it is numerical. The other are independent variables, which are each state, car insurance premiums, how much insurance compancy pay out, which are categorical, numerical and numerical respectively.  
+**Type of study:**The reseach I perfomed is a observational study, since as a analyst I has no control over the variables in this study.  
+**Scope of inference-generalizability:**The population of interst is all the drivers who had invloded in a collision. Since the dataset was collected by NHTSA, it covers all 51 states of U.S. to summarize all the motor vehicle crashes in the United States in 2012. So it definitely can be generalized to the entire population.  
+**Scope of inference-Causality:**We can used the data to establish causal links between the variables of interest,since it was covered a large amount of sample siezes, and we have identified the correlation between variables.
+
+
+```{r}
+library(tidyverse)
+library(DT)
+```
+
+load data
+```{r}
+df<-read.csv("https://raw.githubusercontent.com/Weicaidata/606/master/bad-drivers.csv")
+datatable(df)
+```
+
+#Exploratory Data Analysis
+###Number of fatal collisions in each state
+```{r}
+summary(df$Number.of.drivers.involved.in.fatal.collisions.per.billion.miles)
+```
+
+```{r}
+ggplot(df,aes(x=reorder(State,-Number.of.drivers.involved.in.fatal.collisions.per.billion.miles), y=Number.of.drivers.involved.in.fatal.collisions.per.billion.miles) )+
+  geom_bar(stat = "identity")+
+  xlab("States")+
+  ylab("Number of Collisions")+
+  ggtitle("Number of fatal collisions in each state")+
+  theme(axis.text.x=element_text(angle=90,hjust=0.2,vjust=0.2))
+```
+  
+We can see that North Dakota has the highest number of such drivers for every billion miles traveled. There were 23.9 drivers involved in fatal collisions for every billion miles traveled, which were higher than the national average of 15.6.
+
+###Average Insurance Premiums
+```{r}
+summary(df$Car.Insurance.Premiums....)
+```
+
+```{r}
+hist(df$Car.Insurance.Premiums...., main="Average Insurance Premiums",xlab="Premiums Amount")
+```
+
+```{r}
+ggplot(df,aes(x=reorder(State,Car.Insurance.Premiums....), y= Car.Insurance.Premiums....) )+
+  geom_bar(stat = "identity")+
+  coord_flip()+
+  xlab("States")+
+  ylab("Premiums")+
+  ggtitle("Average Insurance Premiums by State")
+ 
+```
+  
+Based on insurance premiums, the highest risk drivers are to be found in New Jersey, where at $1,301, which has the most expensive car insurance in the country. Nationally, the average combined premium was $887.
+
+
+###How much insurance pay out
+```{r}
+summary(df$Losses.incurred.by.insurance.companies.for.collisions.per.insured.driver....)
+```
+
+```{r}
+ggplot(df,aes(x=reorder(State,- Losses.incurred.by.insurance.companies.for.collisions.per.insured.driver....), y= Losses.incurred.by.insurance.companies.for.collisions.per.insured.driver....) )+
+  geom_bar(stat = "identity")+
+  xlab("States")+
+  ylab("Amount")+
+  ggtitle("Loss Incurred by Insurance Company")+
+  theme(axis.text.x=element_text(angle=90,hjust=0.2,vjust=0.2))
+```
+  
+The loss incurred by insurance companies for each collisions is another measurement I use to determine which state has the worst drivers, we can see that Louisiana was the most expensive, which was at 194.78. Idaho has the best drivers in U.S.. The average pay out for nationalwide was 134.49.  
+
+
+#Inference:
+
+**Conditions:**The conditions for inference was satisfied, since the sample size is larger than 30, and the dataset of premiums follow normal distribution, and each sample is independent.
+
+**Hypothesis test:**  
+Ha <- number of collisions does not affect the insurance premiums  
+Ha <- number of collisions does affect the insurance premiums
+
+```{r}
+infer <- aov(df$Number.of.drivers.involved.in.fatal.collisions.per.billion.miles ~ df$Car.Insurance.Premiums....)
+summary(infer)
+```
+Since the P-value is very large, which is more than 0.05, so we have sufficient evident to reject the null hypothesis, and favor the alternative hypothesis.  
+
+
+
+Futher, we run a linear regression mode. The intercept of 1023.354 represents the starting premiums amount, and the estimate of the number of collision was negative.
+```{r}
+reg<-lm(formula = Car.Insurance.Premiums.... ~Number.of.drivers.involved.in.fatal.collisions.per.billion.miles , data = df)
+summary(reg)
+```
+
+#Summary  
+I have analyzed three differenct independent variables above, the number of car crashes in each state, the insurance premiums, and how much insurance pay out.However I did not have consistant ranking for each measurements, but South Carolina and Texa could be the worst drivers. The best drivers are Idaha, Indiana.  
+For future research, I would like to analyze other factors like the weather condition and road condition to see how they affect the ranking and premiums.
+
+#References:
+https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/812032
